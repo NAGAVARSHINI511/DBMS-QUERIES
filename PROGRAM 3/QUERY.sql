@@ -10,6 +10,11 @@ where Dir_name = 'hitchcock');
 
 -- 2. Find the movie names where one or more actors acted in two or more movies.
 
+select Mov_title,Act_name,role from movies JOIN MOVIE_CAST on MOVIE_CAST.Mov_id=MOVIES.Mov_id
+   JOIN actor on MOVIE_CAST.Act_id=actor.Act_id 
+      where actor.Act_id IN(select Act_id from MOVIE_CAST group by Act_id having count(*)>1)
+
+--alternte query:
 select Mov_title
 from MOVIES m, MOVIE_CAST mc
 where m.Mov_id=mc.Mov_id and mc.Act_id IN (select Act_id
